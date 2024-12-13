@@ -1,0 +1,45 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model List<E_commerce.Models.Product>
+
+<section class="hero">
+    <div class="swiper flex h-full">
+        <!-- Swiper wrapper -->
+        <div class="swiper-wrapper">
+            <!-- Slides -->
+            <div class="swiper-slide">
+                <img class="block h-full w-full object-cover" src="@Url.Content("~/img/banner1.jpg")" alt>
+            </div>
+            <div class="swiper-slide">
+                <img class="block h-full w-full object-cover" src="@Url.Content("~/img/banner2.jpg")" alt>
+            </div>
+            <div class="swiper-slide">
+                <img class="block h-full w-full object-cover" src="@Url.Content("~/img/banner3.jpg")" alt>
+            </div>
+        </div>
+        <div class="swiper-pagination"></div>
+    </div>
+</section>
+
+<section class="products-section py-20">
+    <div class="container mx-auto flex flex-col gap-[60px]">
+        <h2 class="mb-8 text-center text-3xl font-bold">Products</h2>
+        <div class="gap-4 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            @foreach (var product in Model)
+            {
+                <div class="mb-8 h-full">
+                    <div class="card product-card border-gray-200 p-4 flex flex-col justify-center rounded-lg border shadow-md">
+                        <img src="@product.Image" class="max-h-64 mx-auto h-full w-full max-w-xs object-cover" alt="@product.Title">
+                        <div class="card-body mt-4">
+                            <h5 class="card-title truncate text-lg font-semibold">@product.Title</h5>
+                            <p class="card-text text-gray-700">Price: $@product.Price</p>
+                            <p class="card-text text-gray-700">Available: @product.Quantity</p>
+                            <a href="#" class="btn bg-blue-500 text-white py-2 px-4 mt-4 inline-block rounded hover:bg-blue-600">Add to Cart</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>

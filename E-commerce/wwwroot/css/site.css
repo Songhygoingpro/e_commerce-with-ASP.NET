@@ -1,0 +1,17 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.hero {
+    height: calc(100vh - 56px);
+}
+
+td {
+    vertical-align: middle;
+}

@@ -1,0 +1,107 @@
+﻿@model E_commerce.Models.Product
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Product</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" method="post" enctype="multipart/form-data" class="d-flex flex-column gap-2">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+            <!-- Image input for file upload -->
+            <div class="form-group d-flex flex-column gap-1">
+                <label asp-for="Image"></label>
+                <input type="file" asp-for="Image" class="form-control" />
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+
+            <!-- Product Title input -->
+            <div class="form-group d-flex flex-column gap-1">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+
+            <!-- Quantity input -->
+            <div class="form-group d-flex flex-column gap-2">
+                <label asp-for="Quantity" class="control-label"></label>
+                <input asp-for="Quantity" class="form-control" />
+                <span asp-validation-for="Quantity" class="text-danger"></span>
+            </div>
+
+            <!-- Price input -->
+            <div class="form-group d-flex flex-column gap-1">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+
+            <!-- Submit button -->
+            <div class="form-group d-flex flex-column gap-1">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Select the file input and append a preview container below it
+        const fileInput = document.querySelector('input[type="file"][asp-for="Image"]');
+
+        // Create a container for the image preview
+        const previewContainer = document.createElement('div');
+        previewContainer.style.marginTop = '10px';
+        previewContainer.id = 'image-preview-container';
+        fileInput.parentElement.appendChild(previewContainer);
+
+        fileInput.addEventListener('change', function (event) {
+            const file = event.target.files[0];
+
+            // Clear previous previews
+            previewContainer.innerHTML = '';
+
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.alt = 'Image Preview';
+                    img.style.maxWidth = '100%';
+                    img.style.maxHeight = '150px';
+                    img.style.border = '1px solid #ccc';
+                    img.style.padding = '5px';
+                    img.style.display = 'block';
+
+                    previewContainer.appendChild(img);
+                };
+
+                reader.readAsDataURL(file);
+            } else if (file) {
+                const errorText = document.createElement('p');
+                errorText.textContent = 'Please upload a valid image file.';
+                errorText.style.color = 'red';
+                previewContainer.appendChild(errorText);
+            }
+        });
+    });
+
+</script>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

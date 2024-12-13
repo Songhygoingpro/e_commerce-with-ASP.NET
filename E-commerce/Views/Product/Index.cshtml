@@ -1,0 +1,62 @@
+﻿@model IEnumerable<E_commerce.Models.Product>
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Product List";
+}
+
+<h1>Product List</h1>
+
+<a asp-action="Create" type="button" class="bg-primary px-4 py-1 text-white text-decoration-none rounded-2">Add Product</a>
+
+<table class="table-hover table border">
+    <thead class="bg-light text-dark">
+        <tr>
+            <th>Product</th>
+            <th>Inventory</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="d-flex align-items-center">
+                    <img src="@item.Image" alt="@item.Title" class="product-image me-3" />
+                    <span>@item.Title</span>
+                </td>
+                <td>
+                    @item.Quantity in stock
+                </td>
+                <td>
+                    @item.Price
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ProductId" class="btn btn-primary btn-sm">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@item.ProductId" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<style>
+    .product-image {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        border-radius: 5px;
+    }
+
+    .table {
+        margin-top: 20px;
+    }
+
+    .badge {
+        font-size: 0.9em;
+    }
+
+    .btn {
+        margin-right: 5px;
+    }
+</style>

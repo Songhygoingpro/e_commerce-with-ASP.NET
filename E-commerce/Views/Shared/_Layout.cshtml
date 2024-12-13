@@ -1,0 +1,68 @@
+﻿
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - E_commerce</title>
+    @* <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" /> *@
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/E_commerce.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css">
+    <link rel="stylesheet" media="screen" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar bg-gray-800 text-white">
+            <div class="px-4 py-3 container mx-auto flex items-center justify-between">
+                <a class="text-2xl font-semibold" href="/Home/">JingHubs</a>
+                <ul class="space-x-4 flex items-center">
+                    <li>
+                        <a class="text-white px-4 py-2 rounded hover:bg-gray-700" href="#"><i class="fas fa-shopping-cart"></i></a>
+                    </li>
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
+                        <li class="relative">
+                            <button type="button" class="pf-btn px-4 py-2 space-x-2 flex cursor-pointer items-center rounded hover:bg-gray-700" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-user"></i>
+                                <span>@User.Identity.Name</span>
+                            </button>
+                            <ul class="dropdown-menu bg-white mt-2 w-48 top-border-4 right-0 absolute z-10 hidden rounded shadow-lg">
+                                <li><a class="py-2 px-4 text-gray-700 block hover:bg-gray-100" href="/Account/Profile">Profile</a></li>
+                                <li><a class="py-2 px-4 text-gray-700 block hover:bg-gray-100" href="/Account/Logout">Log out</a></li>
+                                <li><a class="py-2 px-4 text-gray-700 block hover:bg-gray-100" href="/Product/">Admin Panel</a></li>
+                            </ul>
+                        </li>
+                    }
+                    else
+                    {
+                        <li>
+                            <a class="text-white px-4 py-2 rounded hover:bg-gray-700" href="/Account/Login">Log In</a>
+                        </li>
+                    }
+
+                    
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main role="main" class="pb-8">
+        @RenderBody()
+    </main>
+
+    <footer class="py-2 text-gray-600 border-t text-center">
+        <div>
+            &copy; 2024 - E_commerce - <a class="text-blue-500 hover:underline" href="/Home/Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
